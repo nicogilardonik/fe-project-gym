@@ -1,0 +1,9 @@
+<app-table
+  [displayedColumns]="displayedColumns"
+  [data]="exercises$ | async"
+  [loading]="loading$ | async"
+  (edit)="handleEdit($event)"
+  (delete)="handleDelete($event)"
+>
+  <ng-content></ng-content>
+</app-table>

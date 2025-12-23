@@ -1,0 +1,49 @@
+<div class="flex flex-col h-[80vh] w-full">
+  <mat-dialog-content class="flex-1 overflow-y-auto p-1">
+    <div class="flex flex-col space-y-4">
+      <!-- Title -->
+      <div class="mb-4">
+        <app-title [title]="'Seleccionar Ejercicios'"></app-title>
+      </div>
+
+      <!-- Filter Bar -->
+      <app-filter-bar (formValues)="onSearch($event)"></app-filter-bar>
+
+      <!-- Exercises Table -->
+      <app-table
+        [data]="exercises$ | async"
+        [displayedColumns]="['name', 'type', 'description']"
+        [isSelect]="true"
+        [loading]="loading$ | async"
+        [total]="totalExercises$ | async"
+        [selected]="subRoutineExercises"
+        class="h-[40vh]"
+        (selectionChange)="toggleExercise($event)"
+      >
+        <mat-paginator
+          [length]="(totalExercises$ | async) || 0"
+          [pageSize]="pageSize"
+          (page)="paginate($event)"
+        ></mat-paginator>
+      </app-table>
+    </div>
+  </mat-dialog-content>
+
+  <!-- Footer with buttons -->
+  <div class="p-6 border-t border-gray-200 bg-white flex justify-end space-x-4">
+    <button
+      class="bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 font-medium py-2 px-5 rounded-lg transition-all"
+      type="button"
+      (click)="close()"
+    >
+      Cancelar
+    </button>
+    <button
+      class="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-medium py-2 px-5 rounded-lg shadow-md transition-all"
+      type="button"
+      (click)="addSelectedExercisesToSubRoutine()"
+    >
+      Agregar
+    </button>
+  </div>
+</div>

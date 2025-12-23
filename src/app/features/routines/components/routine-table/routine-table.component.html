@@ -1,0 +1,10 @@
+<app-table
+  [displayedColumns]="displayedColumns"
+  [data]="transformedRoutines$ | async"
+  [loading]="loading$ | async"
+  (edit)="handleEdit($event)"
+  (delete)="handleDelete($event)"
+>
+  <ng-content></ng-content>
+</app-table>
+

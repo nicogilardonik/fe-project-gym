@@ -1,0 +1,9 @@
+@if (routines.length > 0) {
+  <div class="bg-[#121212] h-screen overflow-hidden">
+    <app-screen [routines]="routines"></app-screen>
+  </div>
+} @else {
+  <div class="bg-[#121212] h-full flex justify-center items-center">
+    <app-loader [size]="'text-9xl'"></app-loader>
+  </div>
+}

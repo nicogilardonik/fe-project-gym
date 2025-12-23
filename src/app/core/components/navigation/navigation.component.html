@@ -1,0 +1,189 @@
+<div class="flex flex-col space-y-6 h-full">
+  <div
+    class="hidden md:block"
+    [ngClass]="{ hidden: isMenuOpen(), 'flex-shrink-0': !isMenuOpen() }"
+  >
+    <!-- Botón hamburguesa (solo visible en móviles/tablets) -->
+    <a routerLink="/">
+      <img
+        title="logo"
+        class="w-full"
+        src="./assets/logos/logo-white.png"
+        [alt]="appName"
+      />
+    </a>
+  </div>
+  <div
+    class="hidden md:block"
+    [ngClass]="{ hidden: isMenuOpen(), block: !isMenuOpen() }"
+  >
+    <div class="flex flex-col space-y-2">
+      <a
+        routerLink="clientes"
+        routerLinkActive="nav-item-selected"
+        class="nav-item cursor-pointer"
+      >
+        <i class="ph-users-light text-white text-xl"></i>
+        <span>Clientes</span>
+      </a>
+
+      <a
+        routerLink="/horarios"
+        routerLinkActive="nav-item-selected"
+        class="nav-item"
+        ><i class="ph-calendar-light text-white text-xl"></i
+        ><span> Horarios</span></a
+      >
+      <a
+        routerLink="/rutinas"
+        routerLinkActive="nav-item-selected"
+        class="nav-item cursor-pointer"
+      >
+        <i class="ph-clipboard-text text-white text-xl"></i>
+        <span> Rutinas</span>
+      </a>
+      <a
+        routerLink="/subrutinas"
+        routerLinkActive="nav-item-selected"
+        class="nav-item cursor-pointer"
+      >
+        <i class="ph-list-bullets-light text-white text-xl"></i>
+        <span> Subrutinas</span>
+      </a>
+
+      <a
+        routerLink="/ejercicios"
+        routerLinkActive="nav-item-selected"
+        class="nav-item cursor-pointer"
+      >
+        <i class="ph-barbell-light text-white text-xl"></i>
+        <span> Ejercicios</span>
+      </a>
+      <a
+        routerLink="/planes"
+        routerLinkActive="nav-item-selected"
+        class="nav-item cursor-pointer"
+      >
+        <i class="ph-clipboard text-white text-xl"></i>
+        <span> Planes</span>
+      </a>
+
+      <a
+        routerLink="/pagos"
+        routerLinkActive="nav-item-selected"
+        class="nav-item cursor-pointer"
+      >
+        <i class="ph-currency-dollar-simple text-white text-xl"></i>
+        <span> Pagos</span>
+      </a>
+
+      <a
+        routerLink="/notificaciones"
+        routerLinkActive="nav-item-selected"
+        class="nav-item cursor-pointer"
+      >
+        <i class="ph-bell text-white text-xl"></i>
+        <span> Notificaciones</span>
+      </a>
+
+      <!-- Submenú de Acceso -->
+      <div class="space-y-1">
+        <!-- Toggle del submenú -->
+        <div
+          (click)="toggleSubmenu('acceso')"
+          [class]="
+            'submenu-toggle ' +
+            (submenuStates.acceso ? 'submenu-toggle-active' : '')
+          "
+        >
+          <i class="ph-key text-white text-xl"></i>
+          <span class="flex-1">Acceso</span>
+          <i
+            class="ph-caret-right text-white text-sm submenu-arrow"
+            [class.submenu-arrow-expanded]="submenuStates.acceso"
+          ></i>
+        </div>
+
+        <!-- Submenú items -->
+        <div
+          class="submenu-container"
+          [style.max-height]="submenuStates.acceso ? '100px' : '0'"
+        >
+          <a
+            routerLink="/acceso-especial"
+            routerLinkActive="submenu-item-selected"
+            class="submenu-item"
+          >
+            <i class="ph-lock-simple text-gray-300 text-lg"></i>
+            <span>Acceso</span>
+          </a>
+          <a
+            routerLink="/historial-accesos"
+            routerLinkActive="submenu-item-selected"
+            class="submenu-item"
+          >
+            <i class="ph-clock-clockwise text-gray-300 text-lg"></i>
+            <span>Historial de Accesos</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Submenú de Premios -->
+      <div class="space-y-1">
+        <!-- Toggle del submenú -->
+        <div
+          (click)="toggleSubmenu('rewards')"
+          [class]="
+            'submenu-toggle ' +
+            (submenuStates.rewards ? 'submenu-toggle-active' : '')
+          "
+        >
+          <i class="ph-trophy text-white text-xl"></i>
+          <span class="flex-1">Premios</span>
+          <i
+            class="ph-caret-right text-white text-sm submenu-arrow"
+            [class.submenu-arrow-expanded]="submenuStates.rewards"
+          ></i>
+        </div>
+
+        <!-- Submenú items -->
+        <div
+          class="submenu-container"
+          [style.max-height]="submenuStates.rewards ? '100px' : '0'"
+        >
+          <a
+            routerLink="/rewards"
+            routerLinkActive="submenu-item-selected"
+            class="submenu-item"
+          >
+            <i class="ph-gift text-gray-300 text-lg"></i>
+            <span>Gestión de Premios</span>
+          </a>
+          <a
+            routerLink="/rewards/history"
+            routerLinkActive="submenu-item-selected"
+            class="submenu-item"
+          >
+            <i class="ph-list-checks text-gray-300 text-lg"></i>
+            <span>Historial de Canjes</span>
+          </a>
+        </div>
+      </div>
+      <a
+        routerLink="/pantalla"
+        routerLinkActive="nav-item-selected"
+        class="nav-item cursor-pointer"
+      >
+        <i class="ph-screencast text-white text-xl"></i>
+        <span> Pantalla</span>
+      </a>
+      <a
+        routerLink="/configuracion"
+        routerLinkActive="nav-item-selected"
+        class="nav-item"
+        ><i class="ph-gear-light text-white text-xl"></i
+        ><span> Configuracion</span></a
+      >
+    </div>
+  </div>
+</div>

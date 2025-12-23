@@ -1,0 +1,84 @@
+<div class="bg-gray-50 text-gray-800 min-h-screen flex flex-col pt-0">
+  <!-- Encabezado -->
+  <header
+    class="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-10 px-6 text-center"
+  >
+    <h1 class="text-4xl md:text-5xl font-extrabold tracking-wide">
+      Panel de Administración
+      <br />
+      <span class="text-gray-200">Gestión eficiente del gimnasio</span>
+    </h1>
+    <p class="mt-4 text-lg">
+      Administra clientes, clases y entrenadores fácilmente.
+    </p>
+  </header>
+
+  <!-- Contenido Principal -->
+  <main class="py-12 px-6 space-y-16 flex-grow">
+    <!-- Accesos Rápidos -->
+    <section>
+      <h2 class="text-2xl font-semibold text-center mb-8">Accesos Rápidos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a
+          class="bg-white shadow-md flex items-center justify-center p-6 rounded-lg hover:shadow-lg transition"
+          routerLink="clientes"
+        >
+          <div class="text-blue-600 text-3xl mr-4">
+            <i class="ph-clipboard-text text-blue-600 text-3xl"></i>
+          </div>
+          <span class="text-lg font-medium">Gestión de Clientes</span>
+        </a>
+        <a
+          class="bg-white shadow-md flex items-center justify-center p-6 rounded-lg hover:shadow-lg transition"
+          routerLink="horarios"
+        >
+          <div class="text-blue-600 text-3xl mr-4">
+            <i class="ph-calendar text-blue-600 text-3xl"></i>
+          </div>
+          <span class="text-lg font-medium">Gestión de Horarios</span>
+        </a>
+        <a
+          class="bg-white shadow-md flex items-center justify-center p-6 rounded-lg hover:shadow-lg transition"
+          routerLink="planes"
+        >
+          <div class="text-blue-600 text-3xl mr-4">
+            <i class="ph-user-focus text-blue-600 text-3xl"></i>
+          </div>
+          <span class="text-lg font-medium">Gestión de Planes</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Estadísticas Resumidas -->
+    <section>
+      <h2 class="text-2xl font-semibold text-center mb-8">
+        Resumen de Actividad
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="bg-white shadow-md rounded-lg p-6 text-center">
+          <h3 class="text-lg font-bold text-gray-700">Clientes Activos</h3>
+          <p class="text-3xl font-semibold text-blue-600">
+            {{ activeClientsCount | async }}
+          </p>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-6 text-center">
+          <h3 class="text-lg font-bold text-gray-700">Clases Programadas</h3>
+          <p class="text-3xl font-semibold text-blue-600">45</p>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-6 text-center">
+          <h3 class="text-lg font-bold text-gray-700">
+            Entrenadores Disponibles
+          </h3>
+          <p class="text-3xl font-semibold text-blue-600">8</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-4 bg-gray-900 text-center text-white">
+    <p class="text-sm">
+      &copy; {{ getYear() }} | Powered by
+      <span class="font-semibold">G3ek Tech</span>
+    </p>
+  </footer>
+</div>
