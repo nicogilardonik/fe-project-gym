@@ -5,8 +5,10 @@ import { MatCheckbox } from "@angular/material/checkbox";
 import { MatIcon } from "@angular/material/icon";
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 import { MatNoDataRow } from "@angular/material/table";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { BadgeComponent } from "@shared/components/badge/badge.component";
 import { LoaderComponent } from "@shared/components/loader/loader.component";
+import { ImageModalComponent } from "@shared/components/image-modal/image-modal.component";
 import { CamelToTitlePipe } from "@shared/pipes/camel-to-title.pipe";
 import { TranslationPipe } from "@shared/pipes/translation.pipe";
 import { UtcDatePipe } from "@shared/pipes/utc-date.pipe";
@@ -37,10 +39,14 @@ import { EColorBadge } from "../../enums/badge-color.enum";
     UtcDatePipe,
     MatCheckbox,
     MatIcon,
+    MatDialogModule,
   ],
 })
 export class TableComponent implements OnInit {
   EColorBadge: typeof EColorBadge = EColorBadge;
+
+  constructor(private dialog: MatDialog) { }
+
   @Output() readonly selectionChange = new EventEmitter<any[]>();
   @Output() readonly edit = new EventEmitter<any>();
   @Output() readonly delete = new EventEmitter<any>();
@@ -302,6 +308,25 @@ export class TableComponent implements OnInit {
       console.warn("Error processing image URL:", imageUrl, error);
       return this.getPlaceholderImage();
     }
+  }
+
+  /**
+   * Opens an image modal in full screen
+   * @param imageUrl The URL of the image to open
+   * @param altText The alternative text for the image
+   */
+  openImageModal(imageUrl: string, altText: string = "Imagen"): void {
+    if (!imageUrl || imageUrl === 'N/A') return;
+
+    this.dialog.open(ImageModalComponent, {
+      data: {
+        imageUrl: this.getImageUrl(imageUrl),
+        altText,
+        fallbackUrl: this.getPlaceholderImage()
+      },
+      panelClass: ['bg-transparent'],
+      backdropClass: ['cdk-overlay-dark-backdrop']
+    });
   }
 
   /**

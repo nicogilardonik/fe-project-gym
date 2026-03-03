@@ -234,6 +234,7 @@ export class ClientsState {
         const selectedClient = {
           _id: response.data._id,
           name: response.data.userInfo?.name,
+          avatarUrl: response.data.userInfo?.avatarUrl,
           identifier: response.data.email,
           password: response.data.userInfo?.password,
           phone: response.data.userInfo?.phone,

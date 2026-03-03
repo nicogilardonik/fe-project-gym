@@ -54,12 +54,40 @@
           *cdkCellDef="let element"
           class="pl-4 p-1 border-b border-gray-100 hover:bg-blue-50 transition-colors"
         >
-          @if (column.includes(".")) {
+          @if (column.includes(".") && !column.toLowerCase().includes("avatarurl")) {
           <span
             class="{{ column === 'userInfo.name' ? 'font-bold text-gray-800 text-base' : 'text-gray-700' }}"
           >
             {{ resolveNestedProperty(element, column) }}
           </span>
+          } @if (column === "userInfo.avatarUrl") {
+          <div class="image-container flex justify-left items-center pt-2 pb-2">
+            @if (resolveNestedProperty(element, column) !== 'N/A') {
+            <!-- Wrap in a button for accessibility and click handling -->
+            <div 
+              role="button"
+              tabindex="0"
+              class="relative w-12 h-12 min-w-[48px] shrink-0 rounded-full overflow-hidden border border-gray-200 shadow-sm bg-gray-200 animate-pulse hover:shadow-md transition-shadow cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 p-0 m-0 block" 
+              #avatarContainer
+              (click)="$event.stopPropagation(); openImageModal(resolveNestedProperty(element, column), element.userInfo?.name || 'Avatar')"
+              title="Expandir imagen">
+              <img
+                [src]="getImageUrl(resolveNestedProperty(element, column))"
+                [alt]="element.userInfo?.name || 'Avatar'"
+                class="w-full h-full object-cover opacity-0 transition-opacity duration-300 block"
+                loading="lazy"
+                decoding="async"
+                (load)="avatarImg.classList.remove('opacity-0'); avatarContainer.classList.remove('animate-pulse', 'bg-gray-200')"
+                (error)="handleImageError($event)"
+                #avatarImg
+              />
+            </div>
+            } @else {
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-50 to-cyan-100 rounded-full border border-blue-200 flex items-center justify-center shadow-sm">
+              <i class="ph-user text-blue-500 text-2xl"></i>
+            </div>
+            }
+          </div>
           } @if (column === "type") {
           <app-badge
             [colorBadge]="
@@ -109,14 +137,24 @@
           } @if (column === "image") {
           <div class="image-container flex justify-center">
             @if (element.rewardImageUrl || element.imageUrl) {
-            <img
-              [src]="element.rewardImageUrl || element.imageUrl"
-              [alt]="element.rewardName || element.name || 'Imagen'"
-              class="w-12 h-12 object-cover rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
-              loading="lazy"
-              decoding="async"
-              (error)="handleImageError($event)"
-            />
+            <div 
+              role="button"
+              tabindex="0"
+              class="relative w-12 h-12 min-w-[48px] shrink-0 rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-shadow bg-gray-200 animate-pulse cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 p-0 m-0 block" 
+              #imgContainer
+              (click)="$event.stopPropagation(); openImageModal(element.rewardImageUrl || element.imageUrl, element.rewardName || element.name || 'Imagen')"
+              title="Expandir imagen">
+              <img
+                [src]="element.rewardImageUrl || element.imageUrl"
+                [alt]="element.rewardName || element.name || 'Imagen'"
+                class="w-full h-full object-cover opacity-0 transition-opacity duration-300 block"
+                loading="lazy"
+                decoding="async"
+                (load)="rewardImg.classList.remove('opacity-0'); imgContainer.classList.remove('animate-pulse', 'bg-gray-200')"
+                (error)="handleImageError($event)"
+                #rewardImg
+              />
+            </div>
             } @else {
             <div
               class="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg border border-gray-300 flex items-center justify-center shadow-sm"
@@ -129,14 +167,24 @@
           </div>
           } @if (column === "imageUrl") {
           <div class="image-container flex justify-center">
-            <img
-              [src]="getImageUrl(element[column])"
-              [alt]="element.name || 'Premio'"
-              class="w-12 h-12 object-cover rounded-lg border border-gray-200"
-              loading="lazy"
-              decoding="async"
-              (error)="handleImageError($event)"
-            />
+            <div 
+              role="button"
+              tabindex="0"
+              class="relative w-12 h-12 min-w-[48px] shrink-0 rounded-lg overflow-hidden border border-gray-200 bg-gray-200 animate-pulse shadow-sm hover:shadow-md transition-shadow cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 p-0 m-0 block" 
+              #urlContainer
+              (click)="$event.stopPropagation(); openImageModal(element[column], element.name || 'Premio')"
+              title="Expandir imagen">
+              <img
+                [src]="getImageUrl(element[column])"
+                [alt]="element.name || 'Premio'"
+                class="w-full h-full object-cover opacity-0 transition-opacity duration-300 block"
+                loading="lazy"
+                decoding="async"
+                (load)="urlImg.classList.remove('opacity-0'); urlContainer.classList.remove('animate-pulse', 'bg-gray-200')"
+                (error)="handleImageError($event)"
+                #urlImg
+              />
+            </div>
           </div>
           } @if (column === "pointsRequired") {
           <app-badge
@@ -229,7 +277,7 @@
           </span>
           } @if ( column !== "isActive" && column !== "type" && column !==
           "createdAt" && column !== "updatedAt" && column !== "name" && column
-          !== "isCustom" && column !== "category" && column !== "sexType" && column !== "successful" && column !== "accessDate" && column !== "cedula" && column !== "lastAccess" && column !== "totalAccesses" && column !== "estadoPago" && column !== "imageUrl" && column !== "pointsRequired" && column !== "totalExchanges" && column !== "enabled" && column !== "disabled" && column !== "date" && column !== "client" && column !== "reward" && column !== "pointsUsed" && column !== "status" && column !== "image" && column !== "amount" && column !== "reason" ) {
+          !== "isCustom" && column !== "category" && column !== "sexType" && column !== "successful" && column !== "accessDate" && column !== "cedula" && column !== "lastAccess" && column !== "totalAccesses" && column !== "estadoPago" && column !== "imageUrl" && column !== "pointsRequired" && column !== "totalExchanges" && column !== "enabled" && column !== "disabled" && column !== "date" && column !== "client" && column !== "reward" && column !== "pointsUsed" && column !== "status" && column !== "image" && column !== "amount" && column !== "reason" && !column.includes('.') ) {
           <span class="text-gray-700">{{ element[column] }}</span>
           }
           <ng-container

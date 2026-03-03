@@ -41,6 +41,8 @@ export class TranslationPipe implements PipeTransform {
         return "Personalizada";
       case "image":
         return "Imagen";
+      case "avatarUrl":
+        return "Avatar";
       case "days":
         return "Días";
       case "day":
